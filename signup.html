@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Регистрация на потребител</h2>
+<form method="POST" class="form">
+    <label>Потребителско име:</label>
+    <input type="text" name="username" required>
+
+    <label>Имейл:</label>
+    <input type="email" name="email" required>
+
+    <label>Парола:</label>
+    <input type="password" name="password" required>
+
+    <button type="submit">Регистрирай се</button>
+</form>
+{% endblock %}

@@ -1,0 +1,37 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Ученици</h2>
+<a href="{{ url_for('add_student') }}">Добави нов ученик</a>
+{% if students %}
+  <table>
+    <thead>
+      <tr>
+        <th>Име</th>
+        <th>Презиме</th>
+        <th>Фамилия</th>
+        <th>Клас</th>
+        <th>Дата на раждане</th>
+        <th>Действия</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for id, first, last, cls, dob in students %}
+      <tr>
+        <td>{{ first }}</td>
+        <td>{{ last }}</td>
+        <td>{{ cls }}</td>
+        <td>{{ dob }}</td>
+        <td>
+          <a href="{{ url_for('edit_student', student_id=id) }}">Редактирай</a> |
+          <a href="{{ url_for('delete_student', student_id=id) }}" onclick="return confirm('Сигурни ли сте?')">Изтрий</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p>Все още няма въведени ученици.</p>
+{% endif %}
+{% endblock %}

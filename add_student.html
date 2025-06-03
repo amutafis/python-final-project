@@ -1,0 +1,21 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Добави ученик</h2>
+<form method="POST" action="{{ url_for('add_student') }}">
+  <label>Име:</label>
+  <input type="text" name="first_name" required>
+
+  <label>Фамилия:</label>
+  <input type="text" name="last_name" required>
+
+  <label>Клас:</label>
+  <input type="text" name="class" required>
+
+  <label>Дата на раждане:</label>
+  <input type="date" name="date_of_birth">
+
+  <button type="submit">Добави</button>
+</form>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Добави отсъствие</h2>
+<form method="POST" action="{{ url_for('add_absence') }}">
+  <label>Ученик:</label>
+  <select name="student_id" required>
+    {% for id, first, last in students %}
+      <option value="{{ id }}">{{ first }} {{ last }}</option>
+    {% endfor %}
+  </select>
+
+  <label>Дата:</label>
+  <input type="date" name="date_absent" required>
+
+  <label>Обяснено:</label>
+  <input type="checkbox" name="is_justified">
+
+  <button type="submit">Добави</button>
+</form>
+{% endblock %}

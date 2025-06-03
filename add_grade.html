@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Добави оценка</h2>
+<form method="POST" action="{{ url_for('add_grade') }}">
+  <label>Ученик:</label>
+  <select name="student_id" required>
+    {% for id, first, last in students %}
+      <option value="{{ id }}">{{ first }} {{ last }}</option>
+    {% endfor %}
+  </select>
+
+  <label>Предмет:</label>
+  <input type="text" name="subject" required>
+
+  <label>Оценка:</label>
+  <input type="number" name="grade" min="2" max="6" required>
+
+  <label>Дата:</label>
+  <input type="date" name="date_given" required>
+
+  <button type="submit">Добави</button>
+</form>
+{% endblock %}
