@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Редактиране на отсъствие</h2>
+  <form method="POST" action="{{ url_for('edit_absence', absence_id=absence.id) }}">
+    {{ csrf_token() }}
+    <label>Избери ученик:</label><br>
+    <select name="student_id" required>
+      {% for s in students %}
+        <option value="{{ s.id }}"
+          {% if s.id == absence.student_id %}selected{% endif %}>
+          {{ s.first_name }} {{ s.last_name }} ({{ s.class }})
+        </option>
+      {% endfor %}
+    </select><br><br>
+
+    <label>Дата на отсъствие:</label><br>
+    <input type="date" name="date_absent" value="{{ absence.date_absent }}" required><br><br>
+
+    <label>Справедливо/Несправедливо:</label><br>
+    <input type="checkbox" name="is_justified"
+      {% if absence.is_justified %}checked{% endif %}>
+    Справедливо<br><br>
+
+    <button type="submit">Обнови</button>
+  </form>
+{% endblock %}
