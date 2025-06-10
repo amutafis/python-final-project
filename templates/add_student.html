@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head><meta charset="UTF-8"><title>Добави ученик</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h1>Добавяне на ученик</h1>
+  <form action="/students/add" method="post">
+    <label>Име: <input name="first_name"></label><br>
+    <label>Фамилия: <input name="last_name"></label><br>
+    <label>Клас: <input name="class"></label><br>
+    <label>Дата на раждане (YYYY-MM-DD): <input name="date_of_birth" placeholder="2025-01-01"></label><br>
+    <button type="submit">Добави</button>
+  </form>
+  <p><a href="/students">Назад</a></p>
+</body>
+</html>

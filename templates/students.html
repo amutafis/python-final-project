@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head><meta charset="UTF-8"><title>Ученици</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h1>Ученици</h1>
+  <p><a href="/students/add">Добави ученик</a> | <a href="/dashboard">Назад</a></p>
+  <ul>
+    {% for s in students %}
+      <li>{{ s.id }} - {{ s.first_name }} {{ s.last_name }} (клас {{ s.class }})
+        <form action="/students/delete/{{ s.id }}" method="post" style="display:inline">
+          <button type="submit">Изтрий</button>
+        </form>
+        <form action="/students/edit/{{ s.id }}" method="post" style="display:inline">
+          <button type="submit">Редактирай</button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

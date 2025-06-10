@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8"><title>Моите отсъствия</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h1>Моите отсъствия</h1>
+  <ul>
+    {% for a in absences %}
+      <li>{{ a.date_absent }} – оправдан: {{ a.is_justified }} (въведено от {{ a.teacher }})</li>
+    {% endfor %}
+  </ul>
+  <p><a href="/index">Начало</a></p>
+</body>
+</html>

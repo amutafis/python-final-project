@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head><meta charset="UTF-8"><title>Редактирай отсъствие</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h1>Редакция на отсъствие</h1>
+  <form method="post">
+    <label>Ученик (ID): <input name="student_id" value="{{ absence.student_id }}"></label><br>
+    <label>Дата: <input name="date_absent" value="{{ absence.date_absent }}"></label><br>
+    <label>Оправдано: 
+      <input type="checkbox" name="is_justified" {% if absence.is_justified %}checked{% endif %}>
+    </label><br>
+    <button type="submit">Запази</button>
+  </form>
+  <p><a href="/absences/manage">Назад</a></p>
+</body>
+</html>

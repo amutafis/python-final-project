@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head><meta charset="UTF-8"><title>Моите оценки</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h1>Моите оценки</h1>
+  <ul>
+    {% for g in grades %}
+      <li>{{ g.subject }}: {{ g.grade }} (дата: {{ g.date_given }}, учител: {{ g.teacher }})</li>
+    {% endfor %}
+  </ul>
+  <p><a href="/index">Начало</a></p>
+</body>
+</html>

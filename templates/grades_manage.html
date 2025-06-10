@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head><meta charset="UTF-8"><title>Управление на оценки</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h1>Всички оценки</h1>
+  <p><a href="/grades/add">Добави оценка</a> | <a href="/dashboard">Назад</a></p>
+  <ul>
+    {% for g in grades %}
+      <li>{{ g.student_name }}: {{ g.subject }} = {{ g.grade }}
+        <form action="/grades/delete/{{ g.id }}" method="post" style="display:inline">
+          <button type="submit">Изтрий</button>
+        </form>
+        <form action="/grades/edit/{{ g.id }}" method="post" style="display:inline">
+          <button type="submit">Редактирай</button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

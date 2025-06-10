@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head><meta charset="UTF-8"><title>Редактирай оценка</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h1>Редакция на оценка</h1>
+  <form method="post">
+    <label>Ученик (ID): <input name="student_id" value="{{ grade.student_id }}"></label><br>
+    <label>Предмет: <input name="subject" value="{{ grade.subject }}"></label><br>
+    <label>Оценка: <input name="grade" value="{{ grade.grade }}"></label><br>
+    <label>Дата: <input name="date_given" value="{{ grade.date_given }}"></label><br>
+    <button type="submit">Запази</button>
+  </form>
+  <p><a href="/grades/manage">Назад</a></p>
+</body>
+</html>

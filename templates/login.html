@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head><meta charset="UTF-8"><title>Вход</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h1>Вход</h1>
+  <form action="/login" method="post">
+    <label>Имейл: <input name="email" type="email"></label><br>
+    <label>Парола: <input name="password" type="password"></label><br>
+    <label>Роля:
+      <select name="role">
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+      </select>
+    </label><br>
+    <button type="submit">Влез</button>
+  </form>
+  <p><a href="/signup">Нямаш акаунт? Регистрирай се</a></p>
+</body>
+</html>

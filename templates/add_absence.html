@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head><meta charset="UTF-8"><title>Добави отсъствие</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h1>Добавяне на отсъствие</h1>
+  <form action="/absences/add" method="post">
+    <label>Ученик (ID): <input name="student_id" type="number"></label><br>
+    <label>Дата (YYYY-MM-DD): <input name="date_absent" placeholder="2025-01-01"></label><br>
+    <label>Оправдан: <input name="is_justified" type="checkbox"></label><br>
+    <button type="submit">Добави</button>
+  </form>
+  <p><a href="/absences/manage">Назад</a></p>
+</body>
+</html>

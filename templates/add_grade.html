@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head><meta charset="UTF-8"><title>Добави оценка</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h1>Добавяне на оценка</h1>
+  <form action="/grades/add" method="post">
+    <label>Ученик (ID): <input name="student_id"></label><br>
+    <label>Предмет: <input name="subject"></label><br>
+    <label>Оценка (2–6): <input name="grade" type="number" min="2" max="6"></label><br>
+    <label>Дата: <input name="date_given" placeholder="YYYY-MM-DD"></label><br>
+    <button type="submit">Добави</button>
+  </form>
+  <p><a href="/grades/manage">Назад</a></p>
+</body>
+</html>
