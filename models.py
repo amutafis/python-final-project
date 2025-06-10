@@ -1,7 +1,4 @@
-from flask_login import UserMixin
-
-
-class User(UserMixin):
+class User:
     def __init__(self, id, username, email, password, role='user'):
         self.id = id
         self.username = username
@@ -30,36 +27,28 @@ def get_user_by_id(mysql, user_id):
     return None
 
 
-def create_user(mysql, username, email, hashed_password):
+def create_user(mysql, username, email, password):
     cursor = mysql.connection.cursor()
-    # Паролата вече е хеширана
     cursor.execute(
         "INSERT INTO users (username, email, password, role) VALUES (%s, %s, %s, %s)",
-        (username, email, hashed_password, 'user')
+        (username, email, password, 'user')
     )
     mysql.connection.commit()
     cursor.close()
 
 
-# ─── STUDENTS ─────────────────────────────────────────────────────────────────────────────────────────────
-
 def get_all_students(mysql):
     cursor = mysql.connection.cursor()
-    # Обграждаме колоната class в обратно кавички
     cursor.execute("SELECT id, first_name, last_name, `class`, date_of_birth FROM students")
     rows = cursor.fetchall()
     cursor.close()
-    students = []
-    for row in rows:
-        # row = (id, first_name, last_name, class, date_of_birth)
-        students.append({
-            'id': row[0],
-            'first_name': row[1],
-            'last_name': row[2],
-            'class': row[3],
-            'date_of_birth': row[4]
-        })
-    return students
+    return [{
+        'id': r[0],
+        'first_name': r[1],
+        'last_name': r[2],
+        'class': r[3],
+        'date_of_birth': r[4]
+    } for r in rows]
 
 
 def student_exists(mysql, student_id):
@@ -88,7 +77,6 @@ def get_student_by_id(mysql, student_id):
 
 def insert_student_record(mysql, first_name, last_name, cls, date_of_birth):
     cursor = mysql.connection.cursor()
-    # Обвиваме class в обратно кавички
     cursor.execute(
         "INSERT INTO students (first_name, last_name, `class`, date_of_birth) VALUES (%s, %s, %s, %s)",
         (first_name, last_name, cls, date_of_birth)
@@ -114,30 +102,22 @@ def delete_student_by_id(mysql, student_id):
     cursor.close()
 
 
-# ─── GRADES ──────────────────────────────────────────────────────────────────────────────────────────────
-
 def get_grades_by_student(mysql, student_id):
     cursor = mysql.connection.cursor()
     cursor.execute(
         "SELECT g.id, g.subject, g.grade, g.date_given, u.username "
         "FROM grades g JOIN users u ON g.teacher_id = u.id "
-        "WHERE g.student_id = %s "
-        "ORDER BY g.date_given DESC",
-        (student_id,)
+        "WHERE g.student_id = %s ORDER BY g.date_given DESC", (student_id,)
     )
     rows = cursor.fetchall()
     cursor.close()
-    grades = []
-    for row in rows:
-        # row = (id, subject, grade, date_given, teacher_username)
-        grades.append({
-            'id': row[0],
-            'subject': row[1],
-            'grade': row[2],
-            'date_given': row[3],
-            'teacher': row[4]
-        })
-    return grades
+    return [{
+        'id': r[0],
+        'subject': r[1],
+        'grade': r[2],
+        'date_given': r[3],
+        'teacher': r[4]
+    } for r in rows]
 
 
 def get_all_grades(mysql):
@@ -151,26 +131,21 @@ def get_all_grades(mysql):
     )
     rows = cursor.fetchall()
     cursor.close()
-    grades = []
-    for row in rows:
-        # row = (id, student_id, first_name, last_name, subject, grade, date_given, teacher_username)
-        grades.append({
-            'id': row[0],
-            'student_id': row[1],
-            'student_name': f"{row[2]} {row[3]}",
-            'subject': row[4],
-            'grade': row[5],
-            'date_given': row[6],
-            'teacher': row[7]
-        })
-    return grades
+    return [{
+        'id': r[0],
+        'student_id': r[1],
+        'student_name': f"{r[2]} {r[3]}",
+        'subject': r[4],
+        'grade': r[5],
+        'date_given': r[6],
+        'teacher': r[7]
+    } for r in rows]
 
 
 def get_grade_by_id(mysql, grade_id):
     cursor = mysql.connection.cursor()
     cursor.execute(
-        "SELECT id, student_id, subject, grade, date_given FROM grades WHERE id = %s",
-        (grade_id,)
+        "SELECT id, student_id, subject, grade, date_given FROM grades WHERE id = %s", (grade_id,)
     )
     row = cursor.fetchone()
     cursor.close()
@@ -212,8 +187,6 @@ def delete_grade_by_id(mysql, grade_id):
     cursor.close()
 
 
-# ─── ABSENCES ────────────────────────────────────────────────────────────────────────────────────────────
-
 def get_all_absences(mysql):
     cursor = mysql.connection.cursor()
     cursor.execute(
@@ -225,25 +198,20 @@ def get_all_absences(mysql):
     )
     rows = cursor.fetchall()
     cursor.close()
-    absences = []
-    for row in rows:
-        # row = (id, student_id, first_name, last_name, date_absent, is_justified, teacher_username)
-        absences.append({
-            'id': row[0],
-            'student_id': row[1],
-            'student_name': f"{row[2]} {row[3]}",
-            'date_absent': row[4],
-            'is_justified': bool(row[5]),
-            'teacher': row[6]
-        })
-    return absences
+    return [{
+        'id': r[0],
+        'student_id': r[1],
+        'student_name': f"{r[2]} {r[3]}",
+        'date_absent': r[4],
+        'is_justified': bool(r[5]),
+        'teacher': r[6]
+    } for r in rows]
 
 
 def get_absence_by_id(mysql, absence_id):
     cursor = mysql.connection.cursor()
     cursor.execute(
-        "SELECT id, student_id, date_absent, is_justified, teacher_id FROM absences WHERE id = %s",
-        (absence_id,)
+        "SELECT id, student_id, date_absent, is_justified, teacher_id FROM absences WHERE id = %s", (absence_id,)
     )
     row = cursor.fetchone()
     cursor.close()
