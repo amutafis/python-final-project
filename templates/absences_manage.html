@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8"><title>Управление на отсъствия</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h1>Всички отсъствия</h1>
+  <p><a href="/absences/add">Добави отсъствие</a> | <a href="/dashboard">Назад</a></p>
+  <ul>
+    {% for a in absences %}
+      <li>{{ a.student_name }} – {{ a.date_absent }} – оправдан: {{ a.is_justified }}
+        <form action="/absences/delete/{{ a.id }}" method="post" style="display:inline">
+          <button type="submit">Изтрий</button>
+        </form>
+        <form action="/absences/edit/{{ a.id }}" method="post" style="display:inline">
+          <button type="submit">Редактирай</button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
